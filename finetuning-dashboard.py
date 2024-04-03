@@ -19,7 +19,7 @@ st.set_page_config(page_title="Mistral-7B Finetuning Results", layout="wide")
 st.markdown("### Mistral-7B Finetuning Results")
 
 intro_text = """
-This interactive dashboard visualizes the performance of the Mistral-7B model after finetuning on three datasets and two language pairs (EN-IT and EN-ZH).
+This dashboard displays the performance of the Mistral-7B model after finetuning vs. three datasets and in two language pairs (EN-IT and EN-ZH).
 
 - **Mistral-7B-LoRA**: Finetuned on 20k bilingual sentences per language pair.
 - **Mistral-7B-LoRA-60k**: Finetuned on 28k bilingual sentences per language pair, with the EN-IT data having a 60:40 ratio of backtranslated sentences.
