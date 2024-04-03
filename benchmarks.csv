@@ -1,0 +1,13 @@
+﻿Dataset,Model,Language Pair,BLEU,ChrF,COMET
+Cleaned Test (2k),GPT-3.5,EN-ZH,18.6,20,80.8
+Cleaned Test (2k),Mistral-7B-Base,EN-ZH,10.3,13.9,73.7
+Cleaned Test (2k),Mistral-7B-LoRA,EN-ZH,48.1,20.4,80.8
+Cleaned Test (2k),Mistral-7B-Base,EN-IT,7.69,34.75,
+Cleaned Test (2k),Mistral-7B-LoRA,EN-IT,14.41,18.4,
+Cleaned Test (2k),Mistral-7B-LoRA-60k,EN-IT,13.99,41.86,
+GuoFeng Test 1,GPT-3.5,EN-ZH,17.4,22.3,82.9
+GuoFeng Test 1,Mistral-7B-Base,EN-ZH,4.1,12.6,70.7
+GuoFeng Test 1,Mistral-7B-LoRA,EN-ZH,35.8,17.9,77.9
+GuoFeng Test 1,Mistral-7B-LoRA-60k,EN-ZH,57.38,18.18,77.92
+Red Sorghum,Mistral-7B-Base,EN-ZH,6.3,8.2,58
+Red Sorghum,Mistral-7B-LoRA,EN-ZH,7.8,10.3,67.7
