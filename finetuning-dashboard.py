@@ -4,12 +4,12 @@ import plotly.express as px
 
 # Load the data
 data = pd.DataFrame({
-    "Dataset": ["Cleaned Test (2k) (GuoFeng)", "Cleaned Test (2k) (GuoFeng)", "Cleaned Test (2k) (GuoFeng)", "Cleaned Test (2k) (GuoFeng)", "Cleaned Test (2k) (GuoFeng)", "Cleaned Test (2k) (GuoFeng)", "Official Test 1 (GuoFeng)", "Official Test 1 (GuoFeng)", "Official Test 1 (GuoFeng)", "Official Test 1 (GuoFeng)", "Red Sorghum", "Red Sorghum"],
+    "Dataset": ["Unofficial GuoFeng 2k", "Unofficial GuoFeng 2k", "Unofficial GuoFeng 2k", "Unofficial GuoFeng 2k", "Unofficial GuoFeng 2k", "Unofficial GuoFeng 2k", "WMT23 GuoFeng", "WMT23 GuoFeng", "WMT23 GuoFeng", "WMT23 GuoFeng", "Red Sorghum", "Red Sorghum"],
     "Model": ["GPT-3.5", "Mistral-7B-Base", "Mistral-7B-LoRA", "Mistral-7B-Base", "Mistral-7B-LoRA", "Mistral-7B-LoRA-60k", "GPT-3.5", "Mistral-7B-Base", "Mistral-7B-LoRA", "Mistral-7B-LoRA-60k", "Mistral-7B-Base", "Mistral-7B-LoRA"],
     "Language Pair": ["EN-ZH", "EN-ZH", "EN-ZH", "EN-IT", "EN-IT", "EN-IT", "EN-ZH", "EN-ZH", "EN-ZH", "EN-ZH", "EN-ZH", "EN-ZH"],
     "BLEU": [18.6, 10.3, 48.1, 7.69, 3.6, 13.99, 17.4, 4.1, 35.8, 57.38, 6.3, 7.8],
     "ChrF": [20.0, 13.9, 20.4, 34.75, 18.4, 41.86, 22.3, 12.6, 17.9, 18.18, 8.2, 10.3],
-    "COMET": [80.8, 73.7, 80.8, None, None, None, 82.9, 70.7, 77.9, 77.92, 58.0, 67.7]
+    "COMET": [80.8, 73.7, 80.8, 43.4, 75.58, None, 82.9, 70.7, 77.9, 77.92, 58.0, 67.7]
 })
 
 # Set page configuration
