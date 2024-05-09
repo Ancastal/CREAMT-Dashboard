@@ -60,6 +60,9 @@ def generate_prompts(df, tgt_lang, prompt_template):
 
 # Zero-shot prompting
 test_fr = pd.read_csv('test_en-fr.csv')
+test_fr = test_fr.iloc[:, :2]
+test_fr.columns = ["en", "fr"]
+
 prompts = generate_prompts(test_fr, "French", "ZHANG23")
 
 
