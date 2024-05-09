@@ -7,6 +7,10 @@ import os
 cache_dir = "mistral_cache"
 output_directory = "clean_creamt_mistral_lora"
 
+cache_dir = "mistral_cache"
+
+# Specify the model name.
+model_name = "mistralai/Mistral-7B-v0.1"
 
 peft_model_path = os.path.join(
     output_directory, "checkpoint-211")  # change checkpoint path
