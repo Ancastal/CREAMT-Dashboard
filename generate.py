@@ -50,11 +50,6 @@ def generate_prompts(df, tgt_lang, prompt_template):
     for index, row in df.iterrows():
         if prompt_template == "ZHANG23":
             prompt = f'English: {row["en"]}' + '\n' + f'{tgt_lang}:'
-        elif prompt_template == "JIAO23":
-            prompt = f'Please provide the {tgt_lang} translation for this sentence: {
-                row["en"]}' + '\n' + 'Translation:'
-        # elif prompt_template == 'FEWSHOTS':
-            # prompt = generate_few_shot_prompt('English', 'Italian', df, row['en'], 5)
         prompts.append(prompt)
     return prompts
 
