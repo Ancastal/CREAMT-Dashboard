@@ -16,13 +16,13 @@ from trl import SFTTrainer
 
 login(token="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")  # same as before
 print("Logged in. Let's go!")
-en_de = pd.read_csv('en-de.csv')
+en_de = pd.read_csv('train_en-de.csv')
 en_de = en_de.iloc[:, :2]
 en_de.columns = ["en", "de"]
-en_fr = pd.read_csv('en-fr.csv')
+en_fr = pd.read_csv('train_en-fr.csv')
 en_fr = en_fr.iloc[:, :2]
 en_fr.columns = ["en", "fr"]
-en_it = pd.read_csv('en-it.csv')
+en_it = pd.read_csv('train_en-it.csv')
 en_it = en_it.iloc[:, :2]
 en_it.columns = ["en", "it"]
 print("Data loaded.")
