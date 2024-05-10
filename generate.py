@@ -14,7 +14,7 @@ cache_dir = "mistral_cache"
 # Specify the model name.
 model_name = "mistralai/Mistral-7B-v0.1"
 
-peft_model_path = Path(output_directory) / "checkpoint-211"
+peft_model_path = Path(output_directory) / "checkpoint-60"
 
 peftconfig = PeftConfig.from_pretrained(peft_model_path)
 
