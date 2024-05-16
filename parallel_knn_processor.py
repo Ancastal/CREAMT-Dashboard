@@ -1,5 +1,6 @@
 import psutil
-import time
+from joblib import Parallel, delayed
+from retrieval_system import RetrievalSystem
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neighbors import NearestNeighbors
 
@@ -28,7 +29,12 @@ class KNNProcessor(RetrievalSystem):
         self.knn.fit(self.data_tfidf)
         print("Data processed and KNN model fitted successfully.")
 
-    def compare_data(self, batch_size=1000):
+    def _find_neighbors(self, title_vec, idx):
+        distances, indices = self.knn.kneighbors(title_vec, n_neighbors=5)
+        title = self.titles_data[idx]
+        return title, [(self.data[i], 1 - distances[0][j]) for j, i in enumerate(indices[0])]
+
+    def compare_data(self, n_jobs=-1, batch_size=1000):
         # Check if the KNN model is fitted
         if self.knn is None or self.titles_tfidf is None:
             raise ValueError("Model is not fitted or data is not processed. Call process_data() first.")
@@ -45,13 +51,14 @@ class KNNProcessor(RetrievalSystem):
             memory_info = process.memory_info()
             print(f"Memory usage: {memory_info.rss / (1024 * 1024)} MB")
 
-            # Find the k-nearest neighbors for the batch of titles
-            distances, indices = self.knn.kneighbors(batch_titles_tfidf, n_neighbors=5)
-            
-            for i, idx in enumerate(range(start_idx, end_idx)):
-                title = self.titles_data[idx]
-                titles_dict[title] = [(self.data[j], 1 - distances[i][j]) for j in indices[i]]
-        
+            # Parallel processing using joblib within each batch
+            results = Parallel(n_jobs=n_jobs)(
+                delayed(self._find_neighbors)(batch_titles_tfidf[i], start_idx + i) for i in range(batch_titles_tfidf.shape[0])
+            )
+
+            batch_titles_dict = {title: neighbors for title, neighbors in results}
+            titles_dict.update(batch_titles_dict)
+
         print("Data compared using KNN successfully.")
         return titles_dict
 
@@ -69,5 +76,3 @@ class KNNProcessor(RetrievalSystem):
         if not topk:
             print("No similar titles found.")
         return topk
-
-# CLI Script remains unchanged
