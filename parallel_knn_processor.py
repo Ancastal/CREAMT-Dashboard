@@ -1,8 +1,7 @@
-from joblib import Parallel, delayed
-from retrieval_system import RetrievalSystem
+import psutil
+import time
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neighbors import NearestNeighbors
-
 
 class KNNProcessor(RetrievalSystem):
     def load_model(self, model_path=None):
@@ -29,23 +28,30 @@ class KNNProcessor(RetrievalSystem):
         self.knn.fit(self.data_tfidf)
         print("Data processed and KNN model fitted successfully.")
 
-    def _find_neighbors(self, title_vec, idx):
-        distances, indices = self.knn.kneighbors(title_vec, n_neighbors=5)
-        title = self.titles_data[idx]
-        return title, [(self.data[i], 1 - distances[0][j]) for j, i in enumerate(indices[0])]
-
-    def compare_data(self, n_jobs=-1):
+    def compare_data(self, batch_size=1000):
         # Check if the KNN model is fitted
         if self.knn is None or self.titles_tfidf is None:
             raise ValueError("Model is not fitted or data is not processed. Call process_data() first.")
 
-        # Parallel processing using joblib
-        results = Parallel(n_jobs=n_jobs)(
-            delayed(self._find_neighbors)(self.titles_tfidf[i], i) for i in range(self.titles_tfidf.shape[0])
-        )
+        titles_dict = {}
+        num_titles = self.titles_tfidf.shape[0]
 
-        titles_dict = {title: neighbors for title, neighbors in results}
+        for start_idx in range(0, num_titles, batch_size):
+            end_idx = min(start_idx + batch_size, num_titles)
+            batch_titles_tfidf = self.titles_tfidf[start_idx:end_idx]
 
+            # Monitor memory usage
+            process = psutil.Process()
+            memory_info = process.memory_info()
+            print(f"Memory usage: {memory_info.rss / (1024 * 1024)} MB")
+
+            # Find the k-nearest neighbors for the batch of titles
+            distances, indices = self.knn.kneighbors(batch_titles_tfidf, n_neighbors=5)
+            
+            for i, idx in enumerate(range(start_idx, end_idx)):
+                title = self.titles_data[idx]
+                titles_dict[title] = [(self.data[j], 1 - distances[i][j]) for j in indices[i]]
+        
         print("Data compared using KNN successfully.")
         return titles_dict
 
@@ -63,3 +69,5 @@ class KNNProcessor(RetrievalSystem):
         if not topk:
             print("No similar titles found.")
         return topk
+
+# CLI Script remains unchanged
